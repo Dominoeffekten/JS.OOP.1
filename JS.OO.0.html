@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="da-DK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Songs</title>
+</head>
+<body>
+    <h1>Songs</h1>
+    <h2>Upload a song</h2>
+    <form>
+        Title: <input name="title" id="title" type="text">
+        Composer: <input name="composer" id="composer" type="text">
+        Year: <input name="year" id="year" type="number">
+        Perfomers: <input name="performer" id="performer" type="text">
+        <button id="send" type='button'>Send</button>
+    </form>
+    <br>
+    <h2>Find a song</h2>
+    <div id="placeholder"> </div>
+</body>
+<script>
+'use strict';
+var $ = function (foo) {
+    return document.getElementById(foo);    // save keystrokes
+}
+
+let Tunes = {
+    intit: function(title, composer, year, perfomer){
+        this.title = title;
+        this.composer = composer;
+        this.year = year;
+        this.perfomer = [];
+        this.perfomer[0] = perfomer;
+       
+    },
+    vis: function(){
+        return `<p>${this.title}, ${this.composer}, ${this.year}, ${this.perfomer[0]}</p>`;
+    }
+};
+
+const showTunes = function(){
+    $('placeholder').innerHTML = "";
+    for (let Tunes of arr){
+        $('placeholder').innerHTML += Tunes.vis() + '<br/>';
+        title.value = "";
+        composer.value = "";
+        year.value = "";
+        performer.value = "";
+    }
+}
+
+function klik() {
+    let t = Object.create(Tunes);
+    t.intit(title.value, composer.value, year.value, performer.value); 
+    arr.push(t);
+    showTunes();
+};
+
+let arr = [];
+
+document.getElementById("send").addEventListener("click", klik);
+
+</script>
+</html>
+

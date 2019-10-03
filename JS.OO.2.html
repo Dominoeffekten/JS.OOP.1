@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="da-DK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card</title>
+</head>
+<body>
+    <h1>Credit card information</h1>
+    <form src="http://x15.dk/hitme.php">
+        Creditcard nr: <input type="number" name="creditcardnr" id="ccno"> <br>
+        Month & Year: <input type="number" name="monthyear" id="exp"> <br>
+        Full Name: <input type="text" name="name" id="name"> <br>
+        cvv: <input type="number" name="cvv" id="cvv"> <br>
+        <button type="button" id="send">send</button>
+    </form>
+    <br>
+    <h2>Information</h2>
+    <div id="placeholder"></div>
+</body>
+<script>
+'use strict';
+
+//nQuery, the JS Framework
+var $ = function (foo) {
+    return document.getElementById(foo);    
+}
+
+let CreditCard = {
+    setState(ccno, expdate, name, cvv) {
+        this.ccnumber = ccno;
+        this.expdate = expdate;
+        this.name = name;
+        this.cvv = cvv;
+    },
+
+    isValid(val) {
+        // code for checking
+        // return false if invalid
+        // else return true
+        var s = 0;
+        var doubleDigit = false;
+            for (var i = ccno.value.length - 1; i >= 0; i--) {
+                var digit = +ccno[i];
+                if (doubleDigit) {
+                    digit *= 2;
+                if (digit > 9)
+                    digit -= 9;
+                }
+            s += digit;
+            doubleDigit = !doubleDigit;
+            }
+        return s % 10 == 0;
+    },
+    vis: function(n, d){
+        return `<p>${this.ccnumber} <br> ${this.expdate} <br> ${this.name} <br> ${this.cvv}</p>`;
+        return `<p>${this.ccnumber} <br> ${this.expdate} <br> ${this.name} <br> ${this.cvv}</p>`;
+    }
+
+
+};
+
+const validate = function(e) {
+    let cc = Object.create(CreditCard);
+    let ccnumber = document.getElementById('ccno');
+    let expdate = document.getElementById('exp').value;
+    let cvv = document.getElementById('cvv').value;
+    // more values from form
+    cc.isValid(); 
+    cc.vis();
+    $('placeholder').innerHTML = cc.vis();
+
+    cc.setState(ccnumber.value, expdate, 'Niels', '666');
+    if (!cc.isValid()) {
+        ccnumber.focus();
+        e.preventDefault();
+        return false;
+    } /* if (! other tests)
+
+    } */ else {
+        return true;
+    }
+};
+
+
+
+
+const init = function() {
+    //document.getElementById('formid').addEventListener('submit', validate);
+    $('send').addEventListener('click', validate);
+}
+
+window.addEventListener('load', init);
+
+
+</script>
+</html>
+

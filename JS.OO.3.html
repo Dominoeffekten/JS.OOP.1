@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="da-DK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brøker</title>
+    <style>
+    section{
+        width: 80%;
+        margin: 0 auto;
+    }
+    #a, #b, #c, #d, #y, #x{
+        width: 30px;
+    }
+    </style>
+</head>
+<body>
+    <section>
+    <h1>Brøker</h1>
+    <form>
+        <table> 
+            <tr>
+                <td><input id="a" type="number"><br>––––<br><input id="b" type="number"></td>
+                <td>
+                    <select name="operators" id="operators" >
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
+                </td>
+                <td><input id="x" type="number" > <br> –––– <br> <input id="y" type="number"></td>
+                <td>=</td>
+                <td><div id="placeholder"></div></td>
+
+            </tr>
+        </table>
+
+        <button id="send" type="button">Send</button>
+    </form>
+<hr>
+<h2>Hvad er en brøk?</h2>
+<p>En brøk er en måde at vise et tal på ved hjælp af en division.
+En brøk består af en vandret streg med en tæller øverst og en nævner nederst.</p>
+<p>n <br> – <br> d</p>
+
+<hr><h2>Forkort</h2>
+<p>En brøk kan forkortes ved at dividere tæller og nævner med det samme tal.</p>
+
+<hr><h2>Plus</h2>
+<p>To brøker med samme nævner lægges sammen ved at lægge tællerne sammen.</p>
+<table> 
+    <tr>
+        <td>a <br> – <br> b</td>
+        <td>+</td>
+        <td>c <br> – <br> b</td>
+        <td>=</td>
+        <td>&nbsp;a+c <br> &nbsp; –– <br> &nbsp;&nbsp; b</td>
+    </tr>
+</table>
+
+<hr><h2>Minus</h2>
+<p>To brøker trækkes fra hinanden på samme måde, som de lægges sammen.
+     Man skal finde en fællesnævner, og derefter kan tællerne trækkes fra hinanden.
+</p>
+
+<hr><h2>Dividere</h2>
+<p>Man dividerer to brøker ved at gange med den "omvendte" brøk.</p>
+
+<hr><h2>Gange</h2>
+<p>Man ganger to brøker med hinanden ved at gange tæller med tæller og nævner med nævner.</p>
+
+
+</section>
+</body>
+<script>
+'use strict';
+//nQuery, *the* JS Framework
+var $ = function (foo) {
+    return document.getElementById(foo);    // save keystrokes
+}
+
+let Rational = {
+    numbers: function (n, d){
+        if (n === '' && d === ''){
+            this.n = 1; //øverste
+            this.d = 0; //nederste
+        } else {
+            this.n = n; //øverste
+            this.d = d; //nederste
+        }
+    },
+    negate: function(n, d){ //minuser
+        if (this.n/-this.d){ 
+            return - (n/d);
+        } if (-n/d){ 
+            return - (d/n);
+        }
+    },
+    invert: function(n, d){ //bytter om på tæller og nævner
+        return d/n;
+    },
+    toFloat: function(n, d){ //laver om til decimaler
+        return (n*20)/(d*20);
+    },
+    reduce: function(n, d){ //forkorter 
+        gcd = gcd(n,d);
+        return (n/gcd, d/gcd);
+    },
+    toAdd: function(n, d){ //lægger dem sammen
+        console.log(n+d);
+        return this.n + this.d;
+    }, 
+    toSub: function(n, d){//trækker det fra
+        return n - d;
+    },
+    toMul: function(n, d){ //ganger det samme
+        return n * d;
+    },
+    toDiv: function(n, d){ //dividere det sammen
+        return n / d;
+    },
+    vis: function(n, d){
+        if (d === 0){
+            return `<p> <br> – <br> ${this.n}</p>` //øverste
+        } else {
+            return `<p>${this.n} <br> – <br> ${this.d}</p>`;
+        }
+    }
+};
+
+//$('placeholder').innerHTML = " "
+
+
+function show(e) {
+    let r = Object.create(Rational); 
+    var o = document.getElementById("operators").value;
+
+    if(o === "+"){
+        r.toAdd(a.value/b.value, x.value/y.value);
+    } else if (o === "-"){
+        r.toSub(a.value/b.value, x.value/y.value);
+    } else if(o === "*"){
+        r.toMul(a.value/b.value, x.value/y.value);
+    }else{
+        r.toDiv(a.value/b.value, x.value/y.value);
+    }
+    $('placeholder').innerHTML = r.vis();
+    
+};
+
+const showMe = function(){    
+        a.value = "";
+        b.value = "";
+        x.value = "";
+        y.value = "";
+}
+
+//let n = (a.value/b.value);
+//let d = (x.value/y.value);
+
+document.getElementById("send").addEventListener("click", show);
+
+</script>
+</html>
+

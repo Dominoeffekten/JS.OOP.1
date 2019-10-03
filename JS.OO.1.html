@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="da-DK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planeter</title>
+</head>
+<body>
+    <h1>Universe</h1>
+    <h2>Choose a planet</h2>
+    <form>
+        <input name="text" type="radio" id="merkur">Mercury<br>
+        <input name="text" type="radio" id="venus">Venus<br>
+        <input name="text" type="radio" id="jorden">Earth<br>
+        <input name="text" type="radio" id="mars">Mars<br>
+        <input name="text" type="radio" id="jupiter">Jupiter<br>
+        <input name="text" type="radio" id="saturn">Saturn<br>
+        <input name="text" type="radio" id="uranus">Uranus<br>
+        <input name="text" type="radio" id="neptune">Neptune<br>
+        <input name="text" type="radio" id="pluto">Pluto<br>
+    </form>
+    <br>
+    <h2>Information</h2>
+    <div id="placeholder"></div>
+</body>
+<script>
+'use strict';
+//nQuery, *the* JS Framework
+var $ = function (foo) {
+    return document.getElementById(foo);    // save keystrokes
+}
+
+let Universe = {
+    planet: function(name, distance, year, days, eccentricity, orbital){
+        this.name = name;
+        this.distance = distance;
+        this.year = year;
+        this.days = days;
+        this.eccentricity = eccentricity;
+        this.orbital = orbital;
+    },
+    vis: function(){
+        return `<h3>${this.name}</h3> <p>Distance: ${this.distance} <br> Year: ${this.year} <br> Days: ${this.days} <br> Eccentricity: ${this.eccentricity} <br> Orbital: ${this.orbital}</p>`;
+    }
+};
+
+$('placeholder').innerHTML = '<h3>' + 'The Sun ' + '</h3>' + 'Distance: ' + ' 0 AU ' + '<br>' + 'Year: ' + '0 y' + '<br>' + 'Days ' + '0 d' + '<br>' + 'Eccentricity: '+ '0' + '<br>' + 'Orbital: ' + '0°';
+
+function show(e) {
+
+    if (e.target.id === "merkur"){ //Merkur
+        let u = Object.create(Universe);
+        u.planet("Mercury", "0.3871 AU","0.2408 y", "87.97 d", "0.206", "7.00°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    } if (e.target.id === "venus"){ //Venus
+        u = Object.create(Universe);
+        u.planet("Venus", "0.7233 AU","0.6152 y", "224.70 d", "0.007", "3.39°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    } if (e.target.id === "jorden"){ //jorden
+        u = Object.create(Universe);
+        u.planet("Earth", "1.0000 AU","1.0000 y", "365.26 d", "0.017", "0.00°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    } if (e.target.id === "mars"){ //Mars
+        u = Object.create(Universe);
+        u.planet("Mars", "1.5237 AU","1.8809 y", "686.98 d", "0.093", "1.85°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    } if (e.target.id === "jupiter"){ //jupiter
+        u = Object.create(Universe);
+        u.planet("Jupiter", "5.2028 AU","11.862 y", "398.9 d", "0.048", "1.31°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    } if (e.target.id === "saturn"){ //saturn
+        u = Object.create(Universe);
+        u.planet("Saturn", "9.5388 AU","29.458 y", "378.1 d", "0.056", "2.49°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    } if (e.target.id === "uranus"){ //uranus
+        u = Object.create(Universe);
+        u.planet("Uranus", "19.1914 AU","84.01 y", "369.7 d", "0.046", "0.77°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    } if (e.target.id === "neptune"){ //neptune
+        u = Object.create(Universe);
+        u.planet("Neptune", "30.0611 AU","164.79 y", "367.5 d", "0.010", "1.77°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    } if (e.target.id === 'pluto'){ //pluto
+        u = Object.create(Universe);
+        u.planet("Pluto", "39.5294 AU","248.5 y", "66.7 d", "0.248", "17.15°");
+        u.vis();
+        $('placeholder').innerHTML = u.vis();
+    }
+};
+
+
+$('merkur').addEventListener('change', show);
+$('venus').addEventListener('change', show);
+$('jorden').addEventListener('change', show);
+$('mars').addEventListener('change', show);
+$('jupiter').addEventListener('change', show);
+$('saturn').addEventListener('change', show);
+$('uranus').addEventListener('change', show);
+$('neptune').addEventListener('change', show);
+$('pluto').addEventListener('change', show);
+
+</script>
+</html>
+
