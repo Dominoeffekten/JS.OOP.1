@@ -13,10 +13,9 @@
         Full Name: <input type="text" name="name" id="name" required> <br>
         cvv: <input type="number" name="cvv" id="cvv" minlength="3" maxlength="4" required> <br>
         <button type="button" id="send">send</button>
-        <div id="wrong"></div>
     </form>
     <br>
-    <h2>Information</h2>
+    <h2>The card</h2>
     <div id="placeholder"></div>
     <div id="place"></div>
 </body>
@@ -38,9 +37,10 @@ let CreditCard = {
 
     isValid(val) {
         var s = 0;
+        let ccnum = document.getElementById('ccno').value;
         var doubleDigit = false;
-            for (var i = ccno.value.length - 1; i >= 0; i--) {
-                var digit = +ccno[i];
+            for (var i = ccnum.length - 1; i >= 0; i--) {
+                var digit = +ccnum[i];
                 if (doubleDigit) {
                     digit *= 2;
                 if (digit > 9)
@@ -50,9 +50,10 @@ let CreditCard = {
             doubleDigit = !doubleDigit;
             }
         return s % 10 == 0;
+        
     },
     vis: function(){
-        return `<p>${this.ccnumber} <br> ${this.expdate} <br> ${this.name} <br> ${this.cvv}</p>`;
+        return `<p>${this.ccnumber} <br> ${this.expdate} <br> ${this.name} <br> ${this.cvv}</p> `;
     }
 
 
@@ -68,21 +69,19 @@ const validate = function(e) {
 
     cc.setState(ccnumber.value, expdate, name, cvv);
     cc.isValid(); 
-    console.log(cc.isValid());
     cc.vis();
-    console.log(cc.vis());
     $('placeholder').innerHTML = cc.vis();
-    $('place').innerHTML = cc.isValid();
+    $('place').innerHTML = 'The card is valid: ' + cc.isValid();
     
     if (!cc.isValid() === 0) {
         ccnumber.focus();
         e.preventDefault();
         return false;
     } if (!/^[01][0-9]20[12][0-9]$/.test($('exp').value)) {
-        alert('Is the Month & Year right?');
-    } /* if (! other tests)
-
-    } */ else {
+        alert('The month or year is not correct');
+    } if (!cvv.length === 3 && !cvv.length === 4 ) {
+        alert('Your CVV number is too short or too long');
+    } else {
         return true;
     }
 };
